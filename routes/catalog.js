@@ -6,7 +6,7 @@ const book_controller = require("../controllers/bookController");
 const author_controller = require("../controllers/authorController");
 const genre_controller = require("../controllers/genreController");
 const book_instance_controller = require("../controllers/bookinstanceController");
-
+const staff_controller = require("../controllers/staffController");
 /// BOOK ROUTES ///
 
 // GET catalog home page.
@@ -36,6 +36,31 @@ router.get("/book/:id", book_controller.book_detail);
 // GET request for list of all Book.
 router.get("/books", book_controller.book_list);
 
+/// GENRE ROUTES ///
+
+// GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
+router.get("/staff/create", staff_controller.staff_create_get);
+
+// POST request for creating Genre.
+router.post("/staff/create", staff_controller.staff_create_post);
+
+// GET request to delete Genre.
+router.get("/staff/:id/delete", staff_controller.staff_delete_get);
+
+// POST request to delete Genre.
+router.post("/staff/:id/delete", staff_controller.staff_delete_post);
+
+// GET request to update Genre.
+router.get("/staff/:id/update", staff_controller.staff_update_get);
+
+// POST request to update Genre.
+router.post("/staff/:id/update", staff_controller.staff_update_post);
+
+// GET request for one Genre.
+router.get("/staff/:id", staff_controller.staff_detail);
+
+// GET request for list of all Genre.
+router.get("/staffs", staff_controller.staff_list);
 /// AUTHOR ROUTES ///
 
 // GET request for creating Author. NOTE This must come before route for id (i.e. display author).

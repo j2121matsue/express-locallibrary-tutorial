@@ -11,11 +11,13 @@ const Book = require("./models/book");
 const Author = require("./models/author");
 const Genre = require("./models/genre");
 const BookInstance = require("./models/bookinstance");
+const Staff=require("./models/staff");
 
 const genres = [];
 const authors = [];
 const books = [];
 const bookinstances = [];
+const staffs=[];
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -32,6 +34,7 @@ async function main() {
   await createAuthors();
   await createBooks();
   await createBookInstances();
+  await createStaffs();
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }
@@ -86,7 +89,12 @@ async function bookInstanceCreate(index, book, imprint, due_back, status) {
   bookinstances[index] = bookinstance;
   console.log(`Added bookinstance: ${imprint}`);
 }
-
+async function StaffCreate(index, name) {
+  const staff = new Staff({ name: name });
+  await staff.save();
+  staffs[index] = staff;
+  console.log(`Added staff: ${name}`);
+}
 async function createGenres() {
   console.log("Adding genres");
   await Promise.all([
@@ -95,7 +103,14 @@ async function createGenres() {
     genreCreate(2, "French Poetry"),
   ]);
 }
-
+async function createStaffs() {
+  console.log("Adding staffs");
+  await Promise.all([
+    staffCreate(0, "Ken Tanaka"),
+    staffCreate(1, "Minami Hamabe"),
+    staffCreate(2, "Haruka Ayase"),
+  ]);
+}
 async function createAuthors() {
   console.log("Adding authors");
   await Promise.all([
